@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>低价付费魔法推荐 · 极光版</title>
+  <style>
+    :root {
+      --bg: #0a0515;
+      --text: #e9dfff;
+      --text-muted: #b0a0d0;
+      --neon-purple: #bb86fc;
+      --neon-cyan: #03dac6;
+      --glow-purple: rgba(187, 134, 252, 0.6);
+      --glow-cyan: rgba(3, 218, 198, 0.5);
+      --card-bg: rgba(25, 20, 50, 0.55);
+      --card-border: rgba(187, 134, 252, 0.35);
+      --strong-glow: 0 0 28px rgba(187,134,252,0.75), 0 0 55px rgba(3,218,198,0.45);
+      --warning: #ff6b6b;
+      --caution: #ffd93d;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      padding: 5rem 1.5rem 7rem;
+      background: linear-gradient(145deg, #0a0515, #140b28, #0a0515);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 10% 20%, var(--glow-purple) 0%, transparent 55%),
+                  radial-gradient(circle at 90% 80%, var(--glow-cyan) 0%, transparent 60%);
+      opacity: 0.65;
+      pointer-events: none;
+      animation: aurora-flow 35s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes aurora-flow {
+      0%   { transform: translate(0, 0) scale(1); opacity: 0.65; }
+      50%  { transform: translate(10%, 15%) scale(1.12); opacity: 0.85; }
+      100% { transform: translate(-8%, -12%) scale(1.08); opacity: 0.7; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3.8rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #bb86fc, #03dac6, #bb86fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 70px rgba(187,134,252,0.8);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      margin-bottom: 4rem;
+    }
+
+    .principles {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      border: 2px solid var(--neon-cyan);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: var(--strong-glow);
+      text-align: center;
+    }
+
+    .principles h2 {
+      color: var(--neon-cyan);
+      margin-bottom: 1rem;
+      text-shadow: 0 0 15px var(--glow-cyan);
+    }
+
+    .airport-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2.2rem;
+      max-width: 1400px;
+      margin: 0 auto 4rem;
+    }
+
+    .airport-item {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 2.2rem;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .airport-item:hover {
+      transform: translateY(-18px) scale(1.02);
+      border-color: var(--neon-purple);
+      box-shadow: var(--strong-glow);
+    }
+
+    .airport-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--neon-purple);
+      text-shadow: 0 0 18px var(--glow-purple);
+    }
+
+    .airport-desc {
+      color: var(--text-muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-warning {
+      color: var(--warning);
+      font-weight: bold;
+      margin: 1rem 0;
+      padding: 0.8rem;
+      background: rgba(255,107,107,0.15);
+      border-left: 4px solid var(--warning);
+      border-radius: 8px;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      color: #000;
+      background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.45s;
+      box-shadow: 0 5px 25px rgba(187,134,252,0.5);
+    }
+
+    .link-btn:hover {
+      transform: translateX(10px) scale(1.06);
+      box-shadow: 0 10px 40px rgba(3,218,198,0.7);
+    }
+
+    .notes {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .note-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .note-warning { border-left: 5px solid var(--warning); }
+    .note-caution { border-left: 5px solid var(--caution); }
+
+    @media (max-width: 900px) {
+      .airport-list { grid-template-columns: 1fr; }
+      h1 { font-size: 3rem; }
+      body { padding: 4rem 1rem 6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>低价付费魔法推荐</h1>
+  <div class="subtitle">主力 & 备用机场 · 极光版精选（2026实时用户心得）</div>
+
+  <div class="principles">
+    <h2>挑选三大原则</h2>
+    <p>① 连接稳定　② 运营时间久　③ 价格性价比</p>
+  </div>
+
+  <ul class="airport-list">
+
+    <li class="airport-item">
+      <div class="airport-name">① 米奇加速（主力首选，但需注意）</div>
+      <div class="airport-desc">
+        ✅ 运营8年<br>
+        ✅ 基础套餐：15.9元/月，200G大流量<br>
+        ✅ 支持4台设备同时在线<br>
+        ✅ 有独立客户端，全端可用，适合小白<br>
+        ✅ 官网有详细安装教程
+      </div>
+      <div class="status-warning">⚠️ 官网收款码被封，暂停付款，疑似跑路风险？但目前还能登官网、节点正常，再观察。新人先观望或别急着买！</div>
+      <a href="https://3aw.mqjs.click/#/register?code=WPBRJKcb" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 访问官网注册
+      </a>
+    </li>
+
+    <li class="airport-item">
+      <div class="airport-name">② 万达云（最近升级专线，性价比爆棚）</div>
+      <div class="airport-desc">
+        ✅ 运营3年+<br>
+        ✅ 团队新加坡合法运营，跑路风险小<br>
+        ✅ 基础套餐：13.9元/月，150G大流量<br>
+        ✅ 支持5台设备同时在线<br>
+        ✅ 有独立客户端全端可用，也可导入订阅<br>
+        ✅ 官网详细教程 + 官方不禁言售后群
+      </div>
+      <a href="https://link.wdyserver.com/register?code=C5FAqoxQ" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 访问官网注册
+      </a>
+    </li>
+
+    <li class="airport-item">
+      <div class="airport-name">③ 扬帆云（适合少设备用户）</div>
+      <div class="airport-desc">
+        ✅ 运营6年+<br>
+        ✅ 基础套餐：15.9元/月，100G流量<br>
+        ✅ 支持2台设备在线<br>
+        ✅ 有独立客户端全端可用，也可导入订阅<br>
+        ✅ 官网有详细安装教程
+      </div>
+      <div class="airport-desc">（我用的少，因为我三个设备不够用）</div>
+      <a href="https://yawtt.net/register?code=YGYBR1vP" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 访问官网注册
+      </a>
+    </li>
+
+    <li class="airport-item">
+      <div class="airport-name">④ 流量光机场（备用梯子，油管博主热推）</div>
+      <div class="airport-desc">
+        ✅ 好像运营2年<br>
+        ✅ 基础套餐：9.9元/月，150G大流量<br>
+        ✅ 不限制同时在线设备数量<br>
+        ✅ 需用代理软件导入订阅链接使用<br>
+        ✅ 官网有详细安装教程
+      </div>
+      <div class="status-warning">⚠️ 不太稳定，有的网站封号，暂不推荐主力使用。可作为波动/跑路时的备用！</div>
+      <a href="https://llg01.com/#/register?code=4FUD51DS" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 访问官网注册
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="notes">
+    <div class="note-card note-warning">
+      <strong>⚠️ 机场的尽头是跑路</strong><br>
+      任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。
+    </div>
+
+    <div class="note-card note-caution">
+      <strong>⛔ 我也是深度用户</strong><br>
+      一天用很久机场，推荐的都是我自己筛选的，最多接受15块的，没用过更高价的。太便宜的（两三块）几乎几天就废，不推荐，不够费劲。
+    </div>
+
+    <div class="note-card note-caution">
+      <strong>🚧 速度因人而异</strong><br>
+      每个人所在地、运营商不同（南方通常比北方好）。都是我真实订单用的，可以发记录验证。找适合自己的就行，我现在主力用米奇（快 + 大碗）。
+    </div>
+
+    <div class="note-card">
+      <strong>🗣 关于邀请码和推广</strong><br>
+      因为总有人问，才发的推荐。邀请码只返20%佣金，两三块钱，公众号阅读量低，够充下月梯子而已。没必要骗人。免费魔法也在更新，全凭自愿～
+    </div>
+
+    <div class="note-card">
+      <strong>安装说明</strong><br>
+      安卓/Windows/mac：在官网下载安装包安装即可！<br>
+      iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
+    </div>
+  </div>
+
+</body>
+</html>
