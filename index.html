@@ -40,7 +40,7 @@
                   radial-gradient(circle at 90% 80%, var(--glow-cyan) 0%, transparent 60%);
       opacity: 0.65;
       pointer-events: none;
-      animation: aurora-flow 35s ease-in-out infinite alternate;
+      animation: aurora-flow 35 ease-in-out infinite alternate;
       z-index: -1;
     }
 
@@ -107,7 +107,7 @@
       border: 1px solid var(--card-border);
       border-radius: 18px;
       padding: 1.8rem;
-      transition: all 0.4s ease;
+      transition: all 0.4 ease;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
 
@@ -175,7 +175,7 @@
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      transition: all 0.4s;
+      transition: all 0.4;
       box-shadow: 0 4px 20px rgba(187,134,252,0.4);
       font-size: 1rem;
     }
@@ -185,9 +185,26 @@
       box-shadow: 0 8px 30px rgba(3,218,198,0.6);
     }
 
+    .extra-links {
+      max-width: 1000px;
+      margin: 3rem auto 2rem;
+      text-align: center;
+    }
+
+    .extra-links .link-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem 1.8rem;
+    }
+
+    .extra-links .link-btn {
+      min-width: 200px;
+    }
+
     .notes {
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 0 auto 3rem;
     }
 
     .note-card {
@@ -217,6 +234,8 @@
       .airport-name { font-size: 1.5rem; margin-bottom: 0.9rem; }
       .airport-features { font-size: 0.98rem; line-height: 1.8; }
       .link-btn { padding: 0.85rem 1.6rem; font-size: 0.98rem; min-width: 200px; }
+      .extra-links .link-group { flex-direction: column; gap: 1.2rem; }
+      .extra-links .link-btn { width: 100%; max-width: 320px; }
       .note-card { padding: 1.2rem; font-size: 0.96rem; }
     }
 
@@ -309,5 +328,24 @@
       iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
     </div>
   </div>
+
+  <!-- 最下方链接区（四条） -->
+  <div class="extra-links">
+    <div class="link-group">
+      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → iOS小火箭免费账号
+      </a>
+      <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 小姬的TG频道
+      </a>
+      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 小姬永久发布页
+      </a>
+      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+        → 代理软件下载合集
+      </a>
+    </div>
+  </div>
+
 </body>
 </html>
