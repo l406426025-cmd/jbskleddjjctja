@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>低价付费魔法推荐 · 小姬</title>
+  <title>低价魔法推荐</title>
   <style>
     :root {
       --bg: #0a0515;
@@ -23,12 +23,11 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: var(--bg);
+      background: linear-gradient(145deg, #0a0515, #140b28, #0a0515);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
-      padding: 5rem 1.5rem 7rem;
-      background: linear-gradient(145deg, #0a0515, #140b28, #0a0515);
+      padding: 4rem 1rem 6rem;
       position: relative;
       overflow-x: hidden;
     }
@@ -41,7 +40,7 @@
                   radial-gradient(circle at 90% 80%, var(--glow-cyan) 0%, transparent 60%);
       opacity: 0.65;
       pointer-events: none;
-      animation: aurora-flow 35 ease-in-out infinite alternate;
+      animation: aurora-flow 35s ease-in-out infinite alternate;
       z-index: -1;
     }
 
@@ -53,86 +52,90 @@
 
     h1 {
       text-align: center;
-      font-size: 3.8rem;
+      font-size: 3.2rem;
       font-weight: 900;
       background: linear-gradient(90deg, #bb86fc, #03dac6, #bb86fc);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 70px rgba(187,134,252,0.8);
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 60px rgba(187,134,252,0.8);
     }
 
     .subtitle {
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: var(--text-muted);
-      margin-bottom: 4rem;
+      margin-bottom: 2.5rem;
     }
 
     .principles {
       background: var(--card-bg);
       backdrop-filter: blur(18px);
       border: 2px solid var(--neon-cyan);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 3rem;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 0 auto 2.5rem;
+      max-width: 1000px;
       box-shadow: var(--strong-glow);
       text-align: center;
     }
 
     .principles h2 {
+      font-size: 1.5rem;
       color: var(--neon-cyan);
-      margin-bottom: 1rem;
-      text-shadow: 0 0 15px var(--glow-cyan);
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 12px var(--glow-cyan);
+    }
+
+    .principles p {
+      font-size: 1.1rem;
     }
 
     .airport-list {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 2.4rem;
-      max-width: 1400px;
-      margin: 0 auto 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.8rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
     }
 
     .airport-item {
       background: var(--card-bg);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 2.4rem;
-      transition: all 0.5 cubic-bezier(0.23, 1, 0.32, 1);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.55);
-      position: relative;
-      overflow: hidden;
+      border-radius: 18px;
+      padding: 1.8rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
 
     .airport-item:hover {
-      transform: translateY(-18px) scale(1.02);
-      border-color: var(--neon-purple);
+      transform: translateY(-10px);
       box-shadow: var(--strong-glow);
     }
 
     .airport-name {
-      font-size: 1.85rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1rem;
       color: var(--neon-purple);
-      text-shadow: 0 0 18px var(--glow-purple);
+      text-shadow: 0 0 14px var(--glow-purple);
+      line-height: 1.3;
     }
 
     .airport-features {
       color: var(--text-muted);
-      font-size: 1.08rem;
-      line-height: 2.0;
-      margin-bottom: 1.4rem;
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
     }
 
     .airport-features .feature {
       display: block;
-      margin-bottom: 0.6rem;
-      padding-left: 2.2rem;
+      margin-bottom: 0.5rem;
+      padding-left: 2rem;
       position: relative;
     }
 
@@ -141,44 +144,45 @@
       position: absolute;
       left: 0;
       color: var(--neon-cyan);
-      font-weight: bold;
     }
 
     .status-warning {
       color: var(--warning);
       font-weight: 600;
-      margin: 1.2rem 0 1.8rem;
-      padding: 1rem 1.2rem;
-      background: rgba(255, 107, 107, 0.12);
+      margin: 1rem 0 1.5rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(255,107,107,0.12);
       border-left: 5px solid var(--warning);
       border-radius: 8px;
-      line-height: 1.6;
+      line-height: 1.5;
+      font-size: 0.98rem;
     }
 
     .extra-note {
-      color: var(--text);
+      color: var(--text-muted);
       font-style: italic;
-      margin-top: 0.8rem;
-      margin-bottom: 1.2rem;
+      margin: 0.8rem 0 1.2rem;
+      font-size: 0.98rem;
     }
 
     .link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
       color: #000;
       background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
-      padding: 0.95rem 1.9rem;
+      padding: 0.9rem 1.8rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      transition: all 0.45;
-      box-shadow: 0 5px 25px rgba(187,134,252,0.5);
+      transition: all 0.4s;
+      box-shadow: 0 4px 20px rgba(187,134,252,0.4);
+      font-size: 1rem;
     }
 
     .link-btn:hover {
-      transform: translateX(10px) scale(1.06);
-      box-shadow: 0 10px 40px rgba(3,218,198,0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(3,218,198,0.6);
     }
 
     .notes {
@@ -188,26 +192,42 @@
 
     .note-card {
       background: var(--card-bg);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.8rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border-radius: 14px;
+      padding: 1.4rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+      font-size: 0.98rem;
+      line-height: 1.6;
     }
 
     .note-warning { border-left: 5px solid var(--warning); }
     .note-caution { border-left: 5px solid var(--caution); }
 
+    /* 手机端优化 */
     @media (max-width: 900px) {
-      .airport-list { grid-template-columns: 1fr; }
-      h1 { font-size: 3rem; }
-      body { padding: 4rem 1rem 6rem; }
+      body { padding: 3rem 1rem 5rem; }
+      h1 { font-size: 2.6rem; margin-bottom: 0.6rem; }
+      .subtitle { font-size: 1.1rem; margin-bottom: 2rem; }
+      .principles { padding: 1.2rem; margin-bottom: 2rem; }
+      .principles h2 { font-size: 1.4rem; }
+      .airport-list { gap: 1.5rem; }
+      .airport-item { padding: 1.6rem; }
+      .airport-name { font-size: 1.5rem; margin-bottom: 0.9rem; }
+      .airport-features { font-size: 0.98rem; line-height: 1.8; }
+      .link-btn { padding: 0.85rem 1.6rem; font-size: 0.98rem; min-width: 200px; }
+      .note-card { padding: 1.2rem; font-size: 0.96rem; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.3rem; }
+      .airport-name { font-size: 1.4rem; }
+      .link-btn { width: 100%; text-align: center; }
     }
   </style>
 </head>
 <body>
-
   <h1>低价魔法推荐</h1>
   <div class="subtitle">主力 & 备用机场 · 小姬精选</div>
 
@@ -217,7 +237,6 @@
   </div>
 
   <ul class="airport-list">
-
     <li class="airport-item">
       <div class="airport-name">① 万达云（最近升级专线，性价比爆棚）</div>
       <div class="airport-features">
@@ -265,7 +284,6 @@
         → 访问官网注册
       </a>
     </li>
-
   </ul>
 
   <div class="notes">
@@ -273,28 +291,23 @@
       <strong>⚠️ 机场的尽头是跑路</strong><br>
       任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。
     </div>
-
     <div class="note-card note-caution">
       <strong>⛔ 我也是深度用户</strong><br>
       一天用很久机场，推荐的都是我自己筛选的，最多接受15块的，没用过更高价的。太便宜的（两三块）几乎几天就废，不推荐，不够费劲。
     </div>
-
     <div class="note-card note-caution">
       <strong>🚧 速度因人而异</strong><br>
       每个人所在地、运营商不同（南方通常比北方好）。都是我真实订单用的，可以发记录验证。找适合自己的就行。
     </div>
-
     <div class="note-card">
       <strong>🗣 关于邀请码和推广</strong><br>
       因为总有人问，才发的推荐。邀请码只返20%佣金，两三块钱，公众号阅读量低，够充下月梯子而已。没必要骗人。免费魔法也在更新，全凭自愿～
     </div>
-
     <div class="note-card">
       <strong>安装说明</strong><br>
       安卓/Windows/mac：在官网下载安装包安装即可！<br>
       iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
     </div>
   </div>
-
 </body>
 </html>
