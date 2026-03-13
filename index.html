@@ -18,6 +18,8 @@
       --strong-glow: 0 0 28px rgba(187,134,252,0.75), 0 0 55px rgba(3,218,198,0.45);
       --warning: #ff6b6b;
       --caution: #ffd93d;
+      --success: #03dac6;
+      --danger: #ff6b6b;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -37,7 +39,7 @@
                   radial-gradient(circle at 90% 80%, var(--glow-cyan) 0%, transparent 60%);
       opacity: 0.65;
       pointer-events: none;
-      animation: aurora-flow 35 ease-in-out infinite alternate;
+      animation: aurora-flow 35s ease-in-out infinite alternate;
       z-index: -1;
     }
     @keyframes aurora-flow {
@@ -96,7 +98,7 @@
       border: 1px solid var(--card-border);
       border-radius: 18px;
       padding: 1.8rem;
-      transition: all 0.4 ease;
+      transition: all 0.4s ease;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
     .airport-item:hover {
@@ -156,7 +158,7 @@
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      transition: all 0.4;
+      transition: all 0.4s;
       box-shadow: 0 4px 20px rgba(187,134,252,0.4);
       font-size: 1rem;
     }
@@ -195,149 +197,240 @@
     }
     .note-warning { border-left: 5px solid var(--warning); }
     .note-caution { border-left: 5px solid var(--caution); }
-    /* 手机端优化 */
-    @media (max-width: 900px) {
-      body { padding: 3rem 1rem 5rem; }
-      h1 { font-size: 2.6rem; margin-bottom: 0.6rem; }
-      .subtitle { font-size: 1.1rem; margin-bottom: 2rem; }
-      .principles { padding: 1.2rem; margin-bottom: 2rem; }
-      .principles h2 { font-size: 1.4rem; }
-      .airport-list { gap: 1.5rem; }
-      .airport-item { padding: 1.6rem; }
-      .airport-name { font-size: 1.5rem; margin-bottom: 0.9rem; }
-      .airport-features { font-size: 0.98rem; line-height: 1.8; }
-      .link-btn { padding: 0.85rem 1.6rem; font-size: 0.98rem; min-width: 200px; }
-      .extra-links .link-group { flex-direction: column; gap: 1.2rem; }
-      .extra-links .link-btn { width: 100%; max-width: 320px; }
-      .note-card { padding: 1.2rem; font-size: 0.96rem; }
+
+    /* 新增：弹窗样式 */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
     }
+    .modal-content {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--neon-purple);
+      border-radius: 20px;
+      max-width: 90%;
+      width: 620px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 2.2rem;
+      box-shadow: var(--strong-glow);
+      color: var(--text);
+    }
+    .modal-content h2 {
+      color: var(--warning);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 15px var(--warning);
+    }
+    .modal-content p {
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+      font-size: 1.05rem;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .modal-btn {
+      padding: 1rem 2.2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 180px;
+    }
+    #agree {
+      background: linear-gradient(90deg, var(--neon-cyan), #00bfa5);
+      color: #000;
+      box-shadow: 0 0 20px var(--glow-cyan);
+    }
+    #agree:hover { transform: scale(1.05); }
+    #disagree {
+      background: var(--danger);
+      color: white;
+      box-shadow: 0 0 20px rgba(255,107,107,0.6);
+    }
+    #disagree:hover { transform: scale(1.05); }
+
     @media (max-width: 600px) {
-      h1 { font-size: 2.3rem; }
-      .airport-name { font-size: 1.4rem; }
-      .link-btn { width: 100%; text-align: center; }
+      .modal-content { padding: 1.6rem; }
+      .modal-buttons { flex-direction: column; gap: 1rem; }
     }
   </style>
 </head>
 <body>
-  <h1>低价魔法推荐</h1>
-  <div class="subtitle">主力 & 备用机场 · 小姬精选</div>
-  <div class="principles">
-    <h2>小姬挑选三大原则</h2>
-    <p>① 连接稳定　② 运营时间久　③ 价格低</p>
-  </div>
-  <ul class="airport-list">
-    <li class="airport-item">
-      <div class="airport-name">① 万达云（最近升级专线，性价比爆棚）</div>
-      <div class="airport-features">
-        <span class="feature">运营3年+</span>
-        <span class="feature">团队新加坡合法运营，跑路风险小</span>
-        <span class="feature">基础套餐：13.9元/月，150G大流量</span>
-        <span class="feature">支持5台设备同时在线</span>
-        <span class="feature">有独立客户端全端可用，也可导入订阅</span>
-        <span class="feature">官网详细教程 + 官方售后群</span>
+
+  <!-- 强制弹窗（页面加载立即出现） -->
+  <div class="modal" id="disclaimerModal">
+    <div class="modal-content">
+      <h2>重要免责声明（必须阅读）</h2>
+      <p>1. 本页面所有内容（包括机场名称、套餐信息、链接等）均来源于互联网公开信息及个人使用体验整理，<strong>仅供学习参考、技术讨论、对比研究之用，不构成任何购买、使用或服务推荐</strong>。</p>
+      
+      <p>2. 本人<strong>不运营、不销售、不代理、不维护</strong>任何机场、VPN、代理服务或节点，<strong>未直接或间接从中获取任何经济利益超出自用返佣的范围</strong>（邀请码返佣仅用于补贴个人使用费用，非商业盈利行为）。</p>
+      
+      <p>3. 中华人民共和国法律法规明确禁止未经许可提供、传播、销售或使用翻墙工具/国际联网代理服务（详见《网络安全法》《计算机信息网络国际联网管理暂行规定》等）。本人<strong>强烈反对、坚决不鼓励、不支持</strong>任何违反中国法律法规的行为。</p>
+      
+      <p>4. 所有提到的服务均存在跑路、断线、封号、法律风险等可能性。访问者必须自行判断服务合法性、稳定性、安全性，并<strong>严格遵守所在地全部法律法规</strong>。任何因访问、使用、付费、下载而产生的法律责任、行政处罚、经济损失、账号问题、个人信息泄露等一切后果，<strong>全部由使用者本人自行承担，与本页面及维护者完全无关</strong>。</p>
+      
+      <p>5. 本页面内容可能因法律法规要求、投诉或服务变动而随时删除、下架或修改，本人不保证信息的完整性、准确性、可用性或时效性，也不承担任何担保责任。</p>
+      
+      <p style="margin-top: 1.5rem; font-size: 1.15rem; text-align: center; color: var(--warning); font-weight: bold;">
+        再次重申：请勿将本页面用于任何违法目的。<br>
+        违法必究，请理性、合法、安全使用互联网。
+      </p>
+
+      <div class="modal-buttons">
+        <button id="agree" class="modal-btn">同意并继续</button>
+        <button id="disagree" class="modal-btn">不同意，离开</button>
       </div>
-      <div class="status-warning">
-        目前价格稳定，性价比高，小姬目前的主力机场，这个我自用的最多的，300G每月的套餐是解锁了全球节点与住宅IP的，这个有住宅ip哦不错的~
-      </div>
-      <a href="https://link.wdyserver.com/register?code=C5FAqoxQ" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 访问官网注册
-      </a>
-    </li>
-    <li class="airport-item">
-      <div class="airport-name">② 扬帆云（适合少设备用户）</div>
-      <div class="airport-features">
-        <span class="feature">运营6年+</span>
-        <span class="feature">基础套餐：15.9元/月，100G流量</span>
-        <span class="feature">支持2台设备在线</span>
-        <span class="feature">有独立客户端全端可用，也可导入订阅</span>
-        <span class="feature">官网有详细安装教程</span>
-      </div>
-      <div class="extra-note">（我用的少，因为我三个设备不够用）</div>
-      <div class="status-warning">
-        老牌稳定，价格没变，但设备限2台+流量100G，适合轻度/单设备用户，不适合多设备
-      </div>
-      <a href="https://yawtt.net/register?code=YGYBR1vP" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 访问官网注册
-      </a>
-    </li>
-    <li class="airport-item">
-      <div class="airport-name">③ 流量光机场（专线机场，油管博主热推）</div>
-      <div class="airport-features">
-        <span class="feature">运营2年+（很多人推）</span>
-        <span class="feature">基础套餐：18.9元/月，150G流量（已涨价）</span>
-        <span class="feature">不限同时在线设备</span>
-        <span class="feature">需导入订阅链接使用</span>
-        <span class="feature">官网有安装教程</span>
-        <span class="feature">需梯子挂国外IP访问官网</span>
-      </div>
-      <div class="status-warning">
-        已涨价，原来是9.9一个月，但全是专线，需求高的可以试，速度很快，我自己真实使用过的
-      </div>
-      <a href="https://llgjc.org/#/register?code=XsHDDgIH" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 访问官网注册
-      </a>
-    </li>
-    <li class="airport-item">
-      <div class="airport-name">④ 比波（全平台+TUN模式，跨境电商首选）</div>
-      <div class="airport-features">
-        <span class="feature">30/月，全平台客户端（Win/Mac/iOS/Android）</span>
-        <span class="feature">Windows TUN模式，完美支持指纹浏览器</span>
-        <span class="feature">纯净IP线路，跨境/养号/注册友好</span>
-        <span class="feature">100+ IPEL专线，高速稳定解锁ChatGPT等</span>
-        <span class="feature">一键连接，零配置超简单</span>
-        <span class="feature">支持5台设备同时在线</span>
-      </div>
-      <div class="extra-note">（跨境电商用户可以用这个，测速不错）</div>
-      <div class="status-warning">
-        适合主力，但适合做跨境或者需要深度和AI对话的用，你可以先免费试用，因为现在能白嫖，用好了再选择付费
-      </div>
-      <a href="https://www.bitboo.cc/" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 访问官网注册
-      </a>
-      <div class="extra-note" style="margin-top:0.6rem; font-size:0.95rem;">
-        邀请码【kcqbxz1571】免费领7天30G + 默认1天2G = 试用8天32G，不嫖白不嫖
-      </div>
-    </li>
-  </ul>
-  <div class="notes">
-    <div class="note-card note-warning">
-      <strong>⚠️ 机场的尽头是跑路</strong><br>
-      任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。目前这四个，把所有人群需要的各个档位的和各种用途的都包括了，按需选择。
-    </div>
-    <div class="note-card note-caution">
-      <strong>⛔ 我也是深度用户</strong><br>
-      我每天用很久机场，推荐的都是我自己筛选的，我自己最多接受15块的（专线除外，专线都贵，但确实稳定速度快），普通直连和中转的没用过更高价的。太便宜的（两三块）几乎几天就废就跑路，不推荐。目前有四个推荐的，前两个比较便宜适合普通用户，第三个是专线机场，追求专线的可以用第三个，我看油管博主推荐好几年了，我自己也用了一段时间，第四个是更高要求的，做跨境电商、AI对话，之类的用的，比较贵一点，我也是白嫖了以后感觉还行后来又自己买了600G
-    </div>
-    <div class="note-card note-caution">
-      <strong>🚧 速度因人而异</strong><br>
-      每个人所在地、运营商不同（南方通常比北方好）。住宅IP比专线好，专线比直连和中转好，中转比直连好：住宅IP＞专线＞中转＞直连，推荐的都是我亲自用过的，我都有真实的付款订单记录的，可以发记录验证。所以信得过就下单，信不过就用免费的，免费的我自己也有更新维护的永久订阅，你们就找适合自己的就行。
-    </div>
-    <div class="note-card">
-      <strong>🗣 关于邀请码和推广</strong><br>
-      因为总有人问所以我才发的推荐。如果你是大佬，可以忽略退出网页，自己去找合适的，邀请码只返20%最多30%佣金，本身推荐的机场就便宜，拉一个人我赚两三块钱，公众号阅读量低，我的佣金只够充下月梯子而已。没必要大费周章骗人。免费魔法也在更新，全凭自愿选择～
-    </div>
-    <div class="note-card">
-      <strong>安装说明</strong><br>
-      安卓/Windows/mac：在官网下载安装包安装即可！<br>
-      iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
     </div>
   </div>
-  <!-- 最下方链接区（四条） -->
-  <div class="extra-links">
-    <div class="link-group">
-      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → iOS小火箭免费账号
-      </a>
-      <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 小姬的TG频道
-      </a>
-      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 小姬永久发布页
-      </a>
-      <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-        → 代理软件下载合集
-      </a>
+
+  <!-- 原有主内容（先隐藏） -->
+  <div id="mainContent" style="display:none;">
+    <h1>低价魔法推荐</h1>
+    <div class="subtitle">主力 & 备用机场 · 小姬精选</div>
+    <div class="principles">
+      <h2>小姬挑选三大原则</h2>
+      <p>① 连接稳定　② 运营时间久　③ 价格低</p>
+    </div>
+    <ul class="airport-list">
+      <li class="airport-item">
+        <div class="airport-name">① 万达云（最近升级专线，性价比爆棚）</div>
+        <div class="airport-features">
+          <span class="feature">运营3年+</span>
+          <span class="feature">团队新加坡合法运营，跑路风险小</span>
+          <span class="feature">基础套餐：13.9元/月，150G大流量</span>
+          <span class="feature">支持5台设备同时在线</span>
+          <span class="feature">有独立客户端全端可用，也可导入订阅</span>
+          <span class="feature">官网详细教程 + 官方售后群</span>
+        </div>
+        <div class="status-warning">
+          目前价格稳定，性价比高，小姬目前的主力机场，这个我自用的最多的，300G每月的套餐是解锁了全球节点与住宅IP的，这个有住宅ip哦不错的~
+        </div>
+        <a href="https://link.wdyserver.com/register?code=C5FAqoxQ" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 访问官网注册
+        </a>
+      </li>
+      <li class="airport-item">
+        <div class="airport-name">② 扬帆云（适合少设备用户）</div>
+        <div class="airport-features">
+          <span class="feature">运营6年+</span>
+          <span class="feature">基础套餐：15.9元/月，100G流量</span>
+          <span class="feature">支持2台设备在线</span>
+          <span class="feature">有独立客户端全端可用，也可导入订阅</span>
+          <span class="feature">官网有详细安装教程</span>
+        </div>
+        <div class="extra-note">（我用的少，因为我三个设备不够用）</div>
+        <div class="status-warning">
+          老牌稳定，价格没变，但设备限2台+流量100G，适合轻度/单设备用户，不适合多设备
+        </div>
+        <a href="https://yawtt.net/register?code=YGYBR1vP" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 访问官网注册
+        </a>
+      </li>
+      <li class="airport-item">
+        <div class="airport-name">③ 流量光机场（专线机场，油管博主热推）</div>
+        <div class="airport-features">
+          <span class="feature">运营2年+（很多人推）</span>
+          <span class="feature">基础套餐：18.9元/月，150G流量（已涨价）</span>
+          <span class="feature">不限同时在线设备</span>
+          <span class="feature">需导入订阅链接使用</span>
+          <span class="feature">官网有安装教程</span>
+          <span class="feature">需梯子挂国外IP访问官网</span>
+        </div>
+        <div class="status-warning">
+          已涨价，原来是9.9一个月，但全是专线，需求高的可以试，速度很快，我自己真实使用过的
+        </div>
+        <a href="https://llgjc.org/#/register?code=XsHDDgIH" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 访问官网注册
+        </a>
+      </li>
+      <li class="airport-item">
+        <div class="airport-name">④ 比波（全平台+TUN模式，跨境电商首选）</div>
+        <div class="airport-features">
+          <span class="feature">30/月，全平台客户端（Win/Mac/iOS/Android）</span>
+          <span class="feature">Windows TUN模式，完美支持指纹浏览器</span>
+          <span class="feature">纯净IP线路，跨境/养号/注册友好</span>
+          <span class="feature">100+ IPEL专线，高速稳定解锁ChatGPT等</span>
+          <span class="feature">一键连接，零配置超简单</span>
+          <span class="feature">支持5台设备同时在线</span>
+        </div>
+        <div class="extra-note">（跨境电商用户可以用这个，测速不错）</div>
+        <div class="status-warning">
+          适合主力，但适合做跨境或者需要深度和AI对话的用，你可以先免费试用，因为现在能白嫖，用好了再选择付费
+        </div>
+        <a href="https://www.bitboo.cc/" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 访问官网注册
+        </a>
+        <div class="extra-note" style="margin-top:0.6rem; font-size:0.95rem;">
+          邀请码【kcqbxz1571】免费领7天30G + 默认1天2G = 试用8天32G，不嫖白不嫖
+        </div>
+      </li>
+    </ul>
+    <div class="notes">
+      <div class="note-card note-warning">
+        <strong>⚠️ 机场的尽头是跑路</strong><br>
+        任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。目前这四个，把所有人群需要的各个档位的和各种用途的都包括了，按需选择。
+      </div>
+      <div class="note-card note-caution">
+        <strong>⛔ 我也是深度用户</strong><br>
+        我每天用很久机场，推荐的都是我自己筛选的，我自己最多接受15块的（专线除外，专线都贵，但确实稳定速度快），普通直连和中转的没用过更高价的。太便宜的（两三块）几乎几天就废就跑路，不推荐。目前有四个推荐的，前两个比较便宜适合普通用户，第三个是专线机场，追求专线的可以用第三个，我看油管博主推荐好几年了，我自己也用了一段时间，第四个是更高要求的，做跨境电商、AI对话，之类的用的，比较贵一点，我也是白嫖了以后感觉还行后来又自己买了600G
+      </div>
+      <div class="note-card note-caution">
+        <strong>🚧 速度因人而异</strong><br>
+        每个人所在地、运营商不同（南方通常比北方好）。住宅IP比专线好，专线比直连和中转好，中转比直连好：住宅IP＞专线＞中转＞直连，推荐的都是我亲自用过的，我都有真实的付款订单记录的，可以发记录验证。所以信得过就下单，信不过就用免费的，免费的我自己也有更新维护的永久订阅，你们就找适合自己的就行。
+      </div>
+      <div class="note-card">
+        <strong>🗣 关于邀请码和推广</strong><br>
+        因为总有人问所以我才发的推荐。如果你是大佬，可以忽略退出网页，自己去找合适的，邀请码只返20%最多30%佣金，本身推荐的机场就便宜，拉一个人我赚两三块钱，公众号阅读量低，我的佣金只够充下月梯子而已。没必要大费周章骗人。免费魔法也在更新，全凭自愿选择～
+      </div>
+      <div class="note-card">
+        <strong>安装说明</strong><br>
+        安卓/Windows/mac：在官网下载安装包安装即可！<br>
+        iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
+      </div>
+    </div>
+    <!-- 最下方链接区（四条） -->
+    <div class="extra-links">
+      <div class="link-group">
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → iOS小火箭免费账号
+        </a>
+        <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 小姬的TG频道
+        </a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 小姬永久发布页
+        </a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
+          → 代理软件下载合集
+        </a>
+      </div>
     </div>
   </div>
+
+  <script>
+    // 弹窗逻辑
+    document.getElementById('agree').addEventListener('click', function() {
+      document.getElementById('disclaimerModal').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    });
+
+    document.getElementById('disagree').addEventListener('click', function() {
+      document.body.innerHTML = '<div style="text-align:center; margin-top:200px; color:#ff6b6b; font-size:2.5rem; font-weight:bold;">已取消访问<br><br>请关闭此页面</div>';
+    });
+  </script>
 </body>
 </html>
