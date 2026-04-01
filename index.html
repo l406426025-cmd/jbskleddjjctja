@@ -6,7 +6,7 @@
   <title>低价魔法精选</title>
   <style>
     :root {
-      /* 浅色模式（默认） */
+      /* 浅色模式 */
       --bg: #ffffff;
       --text: #1f1f1f;
       --text-muted: #555555;
@@ -18,7 +18,6 @@
       --success: #2a9d8f;
     }
 
-    /* 深色模式 */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0f0f12;
@@ -47,7 +46,7 @@
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
-      padding: 5.5rem 1rem 4rem;
+      padding: 5.5rem 1rem 5rem;
       line-height: 1.7;
       transition: background 0.4s ease, color 0.4s ease;
       position: relative;
@@ -96,7 +95,6 @@
       background-clip: text;
       color: transparent;
       margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
     }
     .subtitle {
       text-align: center;
@@ -120,6 +118,11 @@
       color: var(--accent);
       margin-bottom: 0.9rem;
       font-size: 1.45rem;
+    }
+    .principles p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
     }
 
     .airport-list {
@@ -146,23 +149,15 @@
     .airport-name {
       font-size: 1.58rem;
       font-weight: 700;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.4rem;
       color: var(--accent);
-      position: relative;
-      display: inline-block;
     }
-    .airport-name::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--accent), var(--accent-light));
-      transition: width 0.3s ease;
-    }
-    .airport-item:hover .airport-name::after {
-      width: 100%;
+    .airport-subtitle {
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      opacity: 0.95;
     }
 
     .airport-features {
@@ -206,30 +201,28 @@
       font-size: 0.99rem;
     }
 
-    .extra-note {
-      color: var(--text-muted);
-      font-style: italic;
-      margin: 1rem 0 1.4rem;
-      font-size: 0.98rem;
-    }
-
     .link-btn {
       display: block;
-      width: fit-content;
-      margin: 0 auto 0.5rem;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      color: white;
-      padding: 1.05rem 2.2rem;
-      border-radius: 999px;
+      width: 100%;
+      max-width: 280px;
+      margin: 1rem auto;
+      background: var(--card-bg);
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 1.1rem 1.8rem;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: 700;
       font-size: 1.05rem;
-      box-shadow: 0 6px 20px rgba(107, 78, 255, 0.25);
-      transition: all 0.4s ease;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
     }
     .link-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(107, 78, 255, 0.35);
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(107, 78, 255, 0.3);
     }
 
     .notes {
@@ -256,7 +249,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.2rem 1.8rem;
+      gap: 1.4rem 1.8rem;
     }
 
     .modal {
@@ -290,7 +283,7 @@
     @media (max-width: 600px) {
       h1 { font-size: 2.45rem; }
       body { padding-top: 5rem; }
-      .airport-item { padding: 1.7rem; }
+      .link-btn { max-width: 100%; }
     }
   </style>
 </head>
@@ -329,6 +322,7 @@
     <ul class="airport-list">
       <li class="airport-item">
         <div class="airport-name">① 万达云</div>
+        <div class="airport-subtitle">（最近升级专线，性价比爆棚）</div>
         <div class="airport-features">
           <span class="feature">运营3年+</span>
           <span class="feature">团队新加坡合法运营，跑路风险小</span>
@@ -340,7 +334,6 @@
         <div class="status-warning">
           目前价格稳定，性价比高，小姬目前的主力机场，这个我自用的最多的。
         </div>
-        <div class="extra-note">（最近升级专线，性价比爆棚）</div>
         <a href="https://link.wdyserver.com/register?code=C5FAqoxQ" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
@@ -348,6 +341,7 @@
 
       <li class="airport-item">
         <div class="airport-name">② 超实惠专线机场</div>
+        <div class="airport-subtitle">（安卓手机首选，量大管饱，不限在线设备）</div>
         <div class="airport-features">
           <span class="feature">24年开业，运营两年半</span>
           <span class="feature">基础套餐：15元/月，400G超大流量</span>
@@ -364,11 +358,11 @@
         <a href="https://cshjc.net/register?code=ftEq5JR1" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
-        <div class="extra-note">（安卓手机首选，量大管饱，不限在线设备）</div>
       </li>
 
       <li class="airport-item">
         <div class="airport-name">③ 扬帆云</div>
+        <div class="airport-subtitle">（适合少设备用户）</div>
         <div class="airport-features">
           <span class="feature">运营6年+</span>
           <span class="feature">基础套餐：15.9元/月，100G流量</span>
@@ -382,11 +376,11 @@
         <a href="https://yawtt.net/register?code=YGYBR1vP" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
-        <div class="extra-note">（适合少设备用户）</div>
       </li>
 
       <li class="airport-item">
         <div class="airport-name">④ 比波</div>
+        <div class="airport-subtitle">（全平台+TUN模式，跨境电商首选）</div>
         <div class="airport-features">
           <span class="feature">30/月，全平台客户端（Win/Mac/iOS/Android）</span>
           <span class="feature">Windows TUN模式，完美支持指纹浏览器</span>
@@ -400,11 +394,10 @@
         <a href="https://www.bitboo.cc/" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
-        <div class="extra-note">（全平台+TUN模式，跨境电商首选）</div>
       </li>
     </ul>
 
-    <!-- 所有笔记内容 -->
+    <!-- 笔记内容 -->
     <div class="notes">
       <div class="note-card note-warning">
         <strong>⚠️ 机场的尽头是跑路</strong><br>
@@ -429,14 +422,14 @@
       </div>
     </div>
 
-    <!-- 最下方链接区 -->
+    <!-- 最下方链接区 - 已改为方形块按钮 -->
     <div class="extra-links">
       <div class="link-group">
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ iOS小火箭免费账号</a>
-        <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">→ 小姬的TG频道</a>
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ 小姬永久发布页</a>
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ 代理软件下载合集</a>
-        <a href="https://tgsss.com/AA123EB8" class="link-btn" target="_blank" rel="noopener noreferrer">→ TG纸飞机低价账号</a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">iOS小火箭免费账号</a>
+        <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">小姬的TG频道</a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">小姬永久发布页</a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">代理软件下载合集</a>
+        <a href="https://tgsss.com/AA123EB8" class="link-btn" target="_blank" rel="noopener noreferrer">TG纸飞机低价账号</a>
       </div>
     </div>
   </div>
@@ -458,7 +451,6 @@
       }
     }
 
-    // 初始化主题
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
@@ -466,7 +458,6 @@
       toggle.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙' : '🌞';
     }
 
-    // 点击切换
     toggle.addEventListener('click', () => {
       const currentIsDark = root.getAttribute('data-theme') === 'dark';
       setTheme(currentIsDark ? 'light' : 'dark');
