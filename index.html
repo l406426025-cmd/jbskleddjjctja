@@ -31,7 +31,6 @@
       }
     }
 
-    /* 用户手动选择的深色模式（优先级更高） */
     [data-theme="dark"] {
       --bg: #0f0f12;
       --text: #f0f0f5;
@@ -48,93 +47,134 @@
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
-      padding: 5rem 1rem 4rem;
-      line-height: 1.65;
+      padding: 5.5rem 1rem 4rem;
+      line-height: 1.7;
       transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* 切换按钮 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(107,78,255,0.06) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(167,139,255,0.06) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
     .theme-toggle {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 1000;
-      background: var(--card-bg);
-      border: 2px solid var(--card-border);
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
       border-radius: 50px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       cursor: pointer;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       transition: all 0.3s ease;
     }
-    .theme-toggle:hover { transform: scale(1.1); }
+    [data-theme="dark"] .theme-toggle {
+      background: rgba(26,26,32,0.75);
+    }
+    .theme-toggle:hover {
+      transform: scale(1.12);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
 
     h1 {
       text-align: center;
-      font-size: 2.8rem;
+      font-size: 2.85rem;
       font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
     .subtitle {
       text-align: center;
-      font-size: 1.25rem;
+      font-size: 1.28rem;
       color: var(--text-muted);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.8rem;
+      font-weight: 500;
     }
 
     .principles {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.6rem;
-      margin: 0 auto 2.5rem;
-      max-width: 1000px;
+      border-radius: 18px;
+      padding: 1.8rem;
+      margin: 0 auto 2.8rem;
+      max-width: 980px;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
     }
     .principles h2 {
       color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
+      font-size: 1.45rem;
     }
 
     .airport-list {
       list-style: none;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.8rem;
+      gap: 2rem;
       max-width: 1200px;
-      margin: 0 auto 3rem;
+      margin: 0 auto 3.2rem;
     }
     .airport-item {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 1.9rem;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .airport-item:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      border-color: var(--accent-light);
     }
     .airport-name {
-      font-size: 1.55rem;
+      font-size: 1.58rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.1rem;
       color: var(--accent);
+      position: relative;
+      display: inline-block;
     }
+    .airport-name::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
+      transition: width 0.3s ease;
+    }
+    .airport-item:hover .airport-name::after {
+      width: 100%;
+    }
+
     .airport-features {
       color: var(--text-muted);
-      font-size: 1.02rem;
-      line-height: 1.9;
-      margin-bottom: 1.2rem;
+      font-size: 1.03rem;
+      line-height: 1.95;
+      margin-bottom: 1.3rem;
     }
     .airport-features .feature {
       display: block;
-      margin-bottom: 0.6rem;
-      padding-left: 2rem;
+      margin-bottom: 0.65rem;
+      padding-left: 2.1rem;
       position: relative;
     }
     .airport-features .feature::before {
@@ -142,98 +182,111 @@
       position: absolute;
       left: 0;
       color: var(--success);
+      font-size: 1.1rem;
     }
+
     .highlight {
       color: #e63939;
       font-weight: 700;
       background: rgba(230, 57, 57, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
+      padding: 3px 7px;
+      border-radius: 6px;
     }
     .status-warning {
       color: var(--warning);
       font-weight: 600;
-      margin: 1.1rem 0 1.5rem;
-      padding: 1rem 1.2rem;
+      margin: 1.2rem 0 1.6rem;
+      padding: 1.1rem 1.3rem;
       background: rgba(230, 57, 57, 0.08);
       border-left: 5px solid var(--warning);
-      border-radius: 8px;
-      font-size: 0.98rem;
+      border-radius: 10px;
+      font-size: 0.99rem;
     }
     .extra-note {
       color: var(--text-muted);
       font-style: italic;
-      margin: 0.9rem 0 1.2rem;
+      margin: 1rem 0 1.4rem;
+      font-size: 0.98rem;
     }
+
     .link-btn {
       display: block;
       width: fit-content;
-      margin: 0 auto;
+      margin: 0 auto 0.5rem;
       background: linear-gradient(90deg, var(--accent), var(--accent-light));
       color: white;
-      padding: 1rem 2rem;
+      padding: 1.05rem 2.2rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      box-shadow: 0 4px 15px rgba(107, 78, 255, 0.3);
-      transition: all 0.3s ease;
+      font-size: 1.05rem;
+      box-shadow: 0 6px 20px rgba(107, 78, 255, 0.25);
+      transition: all 0.4s ease;
     }
     .link-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(107, 78, 255, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(107, 78, 255, 0.35);
     }
 
-    .notes .note-card {
+    .notes {
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+    }
+    .note-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 1.6rem;
+      margin-bottom: 1.9rem;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.07);
     }
     .note-warning { border-left: 5px solid var(--warning); }
     .note-caution { border-left: 5px solid #f4a261; }
 
     .extra-links {
-      max-width: 1000px;
-      margin: 3rem auto 2rem;
+      max-width: 1100px;
+      margin: 3.5rem auto 2rem;
       text-align: center;
     }
     .extra-links .link-group {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem 1.5rem;
+      gap: 1.2rem 1.8rem;
     }
 
-    /* 弹窗适配浅色和深色 */
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.65);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
     }
     .modal-content {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
+      border-radius: 22px;
       max-width: 90%;
       width: 620px;
       max-height: 88vh;
       overflow-y: auto;
-      padding: 2.2rem;
+      padding: 2.4rem;
       color: var(--text);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
     }
-    .modal-content h2 { color: var(--warning); text-align: center; margin-bottom: 1.5rem; }
+    .modal-content h2 {
+      color: var(--warning);
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.4rem; }
-      body { padding-top: 4.5rem; }
+      h1 { font-size: 2.45rem; }
+      body { padding-top: 5rem; }
+      .airport-item { padding: 1.7rem; }
     }
   </style>
 </head>
@@ -249,12 +302,12 @@
       <p>2. 本人不运营、不销售、不代理任何相关服务，未从中获取超出自用返佣范围的经济利益。</p>
       <p>3. 本人强烈反对任何违反中国法律法规的行为，请严格遵守所在地全部法律法规。</p>
       <p>4. 一切风险与后果由使用者本人自行承担，与本页面无关。</p>
-      <p style="margin-top: 1.5rem; text-align: center; color: var(--warning); font-weight: bold;">
+      <p style="margin-top: 1.6rem; text-align: center; color: var(--warning); font-weight: bold;">
         请勿将本页面用于任何违法目的。
       </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
-        <button id="agree" style="padding: 12px 28px; font-size: 1.1rem; background: #6b4eff; color: white; border: none; border-radius: 999px; cursor: pointer;">同意并继续</button>
-        <button id="disagree" style="padding: 12px 28px; font-size: 1.1rem; background: #e63939; color: white; border: none; border-radius: 999px; cursor: pointer;">不同意，离开</button>
+      <div style="display: flex; gap: 1.2rem; justify-content: center; margin-top: 2.2rem; flex-wrap: wrap;">
+        <button id="agree" style="padding: 13px 32px; font-size: 1.12rem; background: var(--accent); color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: 600;">同意并继续</button>
+        <button id="disagree" style="padding: 13px 32px; font-size: 1.12rem; background: var(--warning); color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: 600;">不同意，离开</button>
       </div>
     </div>
   </div>
@@ -263,6 +316,7 @@
   <div id="mainContent" style="display:none;">
     <h1>低价魔法精选</h1>
     <div class="subtitle">主力 & 备用机场 · 小姬精选</div>
+
     <div class="principles">
       <h2>小姬挑选三大原则</h2>
       <p>① 连接稳定　② 运营时间久　③ 价格低</p>
@@ -346,18 +400,32 @@
       </li>
     </ul>
 
+    <!-- 恢复所有原来的笔记内容 -->
     <div class="notes">
       <div class="note-card note-warning">
         <strong>⚠️ 机场的尽头是跑路</strong><br>
-        任何机场都有跑路风险，建议月付或季度付。目前这四个基本覆盖了不同需求，按需选择。
+        任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。目前这四个，把所有人群需要的各个档位的和各种用途的都包括了，按需选择。
       </div>
       <div class="note-card note-caution">
         <strong>⛔ 我也是深度用户</strong><br>
-        推荐的都是我自己筛选并使用过的，信得过就下单。
+        我每天用很久机场，推荐的都是我自己筛选的，我自己最多接受15块的（专线除外，专线都贵，但确实稳定速度快），普通直连和中转的没用过更高价的。太便宜的（两三块）几乎几天就废就跑路，不推荐。目前有四个推荐的，前两个比较便宜适合普通用户，第三个是专线机场，追求专线的可以用第三个，我看油管博主推荐好几年了，我自己也用了一段时间，第四个是更高要求的，做跨境电商、AI对话，之类的用的，比较贵一点，我也是白嫖了以后感觉还行后来又自己买了600G
       </div>
-      <!-- 其他 note-card 可以根据需要补充，这里简化了 -->
+      <div class="note-card note-caution">
+        <strong>🚧 速度因人而异</strong><br>
+        每个人所在地、运营商不同（南方通常比北方好）。住宅IP比专线好，专线比直连和中转好，中转比直连好：住宅IP＞专线＞中转＞直连，推荐的都是我亲自用过的，我都有真实的付款订单记录的，可以发记录验证。所以信得过就下单，信不过就用免费的，免费的我自己也有更新维护的永久订阅，你们就找适合自己的就行。
+      </div>
+      <div class="note-card">
+        <strong>🗣 关于邀请码和推广</strong><br>
+        因为总有人问所以我才发的推荐。如果你是大佬，可以忽略退出网页，自己去找合适的，邀请码只返20%最多30%佣金，本身推荐的机场就便宜，拉一个人我赚两三块钱，公众号阅读量低，我的佣金只够充下月梯子而已。没必要大费周章骗人。免费魔法也在更新，全凭自愿选择～
+      </div>
+      <div class="note-card">
+        <strong>安装说明</strong><br>
+        安卓/Windows/mac：在官网下载安装包安装即可！<br>
+        iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
+      </div>
     </div>
 
+    <!-- 最下方链接区 -->
     <div class="extra-links">
       <div class="link-group">
         <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ iOS小火箭免费账号</a>
@@ -379,7 +447,7 @@
         root.setAttribute('data-theme', 'dark');
         toggle.textContent = '🌙';
         localStorage.setItem('theme', 'dark');
-      } else if (theme === 'light') {
+      } else {
         root.removeAttribute('data-theme');
         toggle.textContent = '🌞';
         localStorage.setItem('theme', 'light');
@@ -391,15 +459,13 @@
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // 默认跟随系统，不设置 data-theme
       toggle.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙' : '🌞';
     }
 
     // 点击切换
     toggle.addEventListener('click', () => {
-      const isDark = root.getAttribute('data-theme') === 'dark' || 
-                    (!root.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      setTheme(isDark ? 'light' : 'dark');
+      const currentIsDark = root.getAttribute('data-theme') === 'dark';
+      setTheme(currentIsDark ? 'light' : 'dark');
     });
 
     // 弹窗逻辑
