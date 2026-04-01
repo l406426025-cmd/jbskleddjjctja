@@ -120,9 +120,13 @@
       font-size: 1.45rem;
     }
     .principles p {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--accent);
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #1f1f1f;           /* 浅色模式下用深黑，更显眼 */
+      letter-spacing: 0.5px;
+    }
+    [data-theme="dark"] .principles p {
+      color: #f0f0f5;           /* 深色模式下用亮白 */
     }
 
     .airport-list {
@@ -201,28 +205,29 @@
       font-size: 0.99rem;
     }
 
+    /* 方形块按钮 - 颜色更明显 */
     .link-btn {
       display: block;
       width: 100%;
       max-width: 280px;
       margin: 1rem auto;
-      background: var(--card-bg);
-      color: var(--accent);
+      background: var(--accent);
+      color: white;
       border: 2px solid var(--accent);
-      padding: 1.1rem 1.8rem;
+      padding: 1.15rem 1.6rem;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.06rem;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 18px rgba(107, 78, 255, 0.3);
       transition: all 0.3s ease;
     }
     .link-btn:hover {
-      background: var(--accent);
-      color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(107, 78, 255, 0.3);
+      background: #5a3de6;
+      border-color: #5a3de6;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(107, 78, 255, 0.4);
     }
 
     .notes {
@@ -252,37 +257,16 @@
       gap: 1.4rem 1.8rem;
     }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-    .modal-content {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      max-width: 90%;
-      width: 620px;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 2.4rem;
-      color: var(--text);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-    }
-    .modal-content h2 {
-      color: var(--warning);
-      text-align: center;
-      margin-bottom: 1.6rem;
-    }
-
+    /* 手机端强制三大原则一行显示 */
     @media (max-width: 600px) {
+      .principles p {
+        font-size: 1.05rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 10px;
+      }
       h1 { font-size: 2.45rem; }
-      body { padding-top: 5rem; }
       .link-btn { max-width: 100%; }
     }
   </style>
@@ -422,7 +406,7 @@
       </div>
     </div>
 
-    <!-- 最下方链接区 - 已改为方形块按钮 -->
+    <!-- 最下方方形块按钮 -->
     <div class="extra-links">
       <div class="link-group">
         <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">iOS小火箭免费账号</a>
