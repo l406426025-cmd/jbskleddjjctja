@@ -6,85 +6,99 @@
   <title>低价魔法精选</title>
   <style>
     :root {
-      --bg: #0c0719;
-      --text: #f0f0ff;           /* 更亮的白色，提升清晰度 */
-      --text-muted: #c8b8e6;     /* 调亮的柔和紫灰 */
-      --neon-purple: #c38bff;
-      --neon-cyan: #00e6d6;
-      --glow-purple: rgba(195, 139, 255, 0.45);
-      --glow-cyan: rgba(0, 230, 214, 0.35);
-      --card-bg: rgba(30, 25, 60, 0.85);   /* 更高不透明度，背景更实 */
-      --card-border: rgba(195, 139, 255, 0.45);
-      --strong-glow: 0 0 20px rgba(195,139,255,0.5), 0 0 40px rgba(0,230,214,0.3);
-      --warning: #ff6b6b;
-      --caution: #ffd93d;
-      --success: #00e6d6;
-      --danger: #ff6b6b;
+      /* 浅色模式（默认） */
+      --bg: #ffffff;
+      --text: #1f1f1f;
+      --text-muted: #555555;
+      --card-bg: #f8f9fa;
+      --card-border: #e0e0e0;
+      --accent: #6b4eff;
+      --accent-light: #a78bff;
+      --warning: #e63939;
+      --success: #2a9d8f;
     }
+
+    /* 深色模式 */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f12;
+        --text: #f0f0f5;
+        --text-muted: #b0b0c0;
+        --card-bg: #1a1a20;
+        --card-border: #333340;
+        --accent: #8b6eff;
+        --accent-light: #b8a0ff;
+      }
+    }
+
+    /* 用户手动选择的深色模式（优先级更高） */
+    [data-theme="dark"] {
+      --bg: #0f0f12;
+      --text: #f0f0f5;
+      --text-muted: #b0b0c0;
+      --card-bg: #1a1a20;
+      --card-border: #333340;
+      --accent: #8b6eff;
+      --accent-light: #b8a0ff;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(145deg, #0c0719, #1a0f32, #0c0719);
+      background: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
-      padding: 4rem 1rem 6rem;
-      position: relative;
-      overflow-x: hidden;
-      line-height: 1.6;
+      padding: 5rem 1rem 4rem;
+      line-height: 1.65;
+      transition: background 0.4s ease, color 0.4s ease;
     }
-    body::before {
-      content: '';
+
+    /* 切换按钮 */
+    .theme-toggle {
       position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 15% 25%, var(--glow-purple) 0%, transparent 50%),
-                  radial-gradient(circle at 85% 75%, var(--glow-cyan) 0%, transparent 55%);
-      opacity: 0.45;
-      pointer-events: none;
-      animation: aurora-flow 40s ease-in-out infinite alternate;
-      z-index: -1;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 50px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
     }
-    @keyframes aurora-flow {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.45; }
-      50% { transform: translate(8%, 12%) scale(1.08); opacity: 0.55; }
-      100% { transform: translate(-6%, -10%) scale(1.05); opacity: 0.48; }
-    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
     h1 {
       text-align: center;
-      font-size: 3.1rem;
-      font-weight: 900;
-      background: linear-gradient(90deg, #c38bff, #00e6d6, #c38bff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.8rem;
-      text-shadow: 0 0 40px rgba(195,139,255,0.6);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
     }
     .subtitle {
       text-align: center;
-      font-size: 1.22rem;
+      font-size: 1.25rem;
       color: var(--text-muted);
       margin-bottom: 2.5rem;
     }
+
     .principles {
       background: var(--card-bg);
-      backdrop-filter: blur(22px);
-      border: 2px solid var(--neon-cyan);
+      border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 1.6rem;
       margin: 0 auto 2.5rem;
       max-width: 1000px;
-      box-shadow: var(--strong-glow);
       text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     .principles h2 {
-      font-size: 1.55rem;
-      color: var(--neon-cyan);
+      color: var(--accent);
       margin-bottom: 0.8rem;
-      text-shadow: 0 0 10px var(--glow-cyan);
     }
-    .principles p {
-      font-size: 1.12rem;
-    }
+
     .airport-list {
       list-style: none;
       display: grid;
@@ -95,85 +109,91 @@
     }
     .airport-item {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
       border-radius: 18px;
       padding: 1.9rem;
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .airport-item:hover {
       transform: translateY(-6px);
-      box-shadow: var(--strong-glow);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
     }
     .airport-name {
-      font-size: 1.62rem;
-      font-weight: 800;
-      margin-bottom: 1.1rem;
-      color: var(--neon-purple);
-      text-shadow: 0 0 12px var(--glow-purple);
-      line-height: 1.3;
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent);
     }
     .airport-features {
       color: var(--text-muted);
       font-size: 1.02rem;
-      line-height: 1.95;
+      line-height: 1.9;
       margin-bottom: 1.2rem;
     }
     .airport-features .feature {
       display: block;
-      margin-bottom: 0.55rem;
-      padding-left: 2.1rem;
+      margin-bottom: 0.6rem;
+      padding-left: 2rem;
       position: relative;
     }
     .airport-features .feature::before {
-      content: "✅ ";
+      content: "✅";
       position: absolute;
       left: 0;
-      color: var(--neon-cyan);
+      color: var(--success);
     }
     .highlight {
-      color: #ff5252;
+      color: #e63939;
       font-weight: 700;
-      background: rgba(255, 82, 82, 0.18);
+      background: rgba(230, 57, 57, 0.1);
       padding: 2px 6px;
       border-radius: 4px;
     }
     .status-warning {
       color: var(--warning);
       font-weight: 600;
-      margin: 1.1rem 0 1.6rem;
+      margin: 1.1rem 0 1.5rem;
       padding: 1rem 1.2rem;
-      background: rgba(255,107,107,0.15);
+      background: rgba(230, 57, 57, 0.08);
       border-left: 5px solid var(--warning);
       border-radius: 8px;
-      line-height: 1.55;
-      font-size: 0.99rem;
+      font-size: 0.98rem;
     }
     .extra-note {
       color: var(--text-muted);
       font-style: italic;
-      margin: 0.9rem 0 1.3rem;
-      font-size: 0.99rem;
+      margin: 0.9rem 0 1.2rem;
     }
     .link-btn {
       display: block;
       width: fit-content;
       margin: 0 auto;
-      color: #0a0515;
-      background: linear-gradient(90deg, #c38bff, #00e6d6);
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      color: white;
       padding: 1rem 2rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      transition: all 0.4s;
-      box-shadow: 0 5px 22px rgba(195,139,255,0.5);
-      font-size: 1.03rem;
+      box-shadow: 0 4px 15px rgba(107, 78, 255, 0.3);
+      transition: all 0.3s ease;
     }
     .link-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,230,214,0.6);
+      box-shadow: 0 8px 20px rgba(107, 78, 255, 0.4);
     }
+
+    .notes .note-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    .note-warning { border-left: 5px solid var(--warning); }
+    .note-caution { border-left: 5px solid #f4a261; }
+
     .extra-links {
       max-width: 1000px;
       margin: 3rem auto 2rem;
@@ -183,123 +203,58 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.2rem 1.8rem;
+      gap: 1rem 1.5rem;
     }
-    .extra-links .link-btn {
-      min-width: 200px;
-    }
-    .notes {
-      max-width: 1000px;
-      margin: 0 auto 3rem;
-    }
-    .note-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-      font-size: 1rem;
-      line-height: 1.65;
-    }
-    .note-warning { border-left: 5px solid var(--warning); }
-    .note-caution { border-left: 5px solid var(--caution); }
 
-    /* 弹窗样式 */
+    /* 弹窗适配浅色和深色 */
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.7);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
     .modal-content {
       background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      border: 2px solid var(--neon-purple);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       max-width: 90%;
       width: 620px;
       max-height: 88vh;
       overflow-y: auto;
-      padding: 2.3rem;
-      box-shadow: var(--strong-glow);
+      padding: 2.2rem;
       color: var(--text);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     }
-    .modal-content h2 {
-      color: var(--warning);
-      text-align: center;
-      margin-bottom: 1.6rem;
-      text-shadow: 0 0 12px var(--warning);
-    }
-    .modal-content p {
-      line-height: 1.8;
-      margin-bottom: 1.1rem;
-      font-size: 1.05rem;
-    }
-    .modal-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2.2rem;
-      flex-wrap: wrap;
-    }
-    .modal-btn {
-      padding: 1.05rem 2.3rem;
-      font-size: 1.12rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-      min-width: 185px;
-    }
-    #agree {
-      background: linear-gradient(90deg, var(--neon-cyan), #00d4c0);
-      color: #0a0515;
-      box-shadow: 0 0 18px var(--glow-cyan);
-    }
-    #agree:hover { transform: scale(1.04); }
-    #disagree {
-      background: var(--danger);
-      color: white;
-      box-shadow: 0 0 18px rgba(255,107,107,0.55);
-    }
-    #disagree:hover { transform: scale(1.04); }
+    .modal-content h2 { color: var(--warning); text-align: center; margin-bottom: 1.5rem; }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.55rem; }
-      .modal-content { padding: 1.7rem; }
-      .modal-buttons { flex-direction: column; gap: 1rem; }
+      h1 { font-size: 2.4rem; }
+      body { padding-top: 4.5rem; }
     }
   </style>
 </head>
 <body>
+  <!-- 主题切换按钮 -->
+  <div class="theme-toggle" id="themeToggle">🌞</div>
+
   <!-- 强制弹窗 -->
   <div class="modal" id="disclaimerModal">
     <div class="modal-content">
       <h2>重要免责声明（必须阅读）</h2>
-      <p>1. 本页面所有内容（包括机场名称、套餐信息、链接等）均来源于互联网公开信息及个人使用体验整理，<strong>仅供学习参考、技术讨论、对比研究之用</strong>。</p>
-     
-      <p>2. 本人<strong>不运营、不销售、不代理、不维护</strong>任何机场、VPN、代理服务或节点，<strong>未直接或间接从中获取任何经济利益超出自用返佣的范围</strong>（邀请码返佣仅用于补贴个人使用费用，非商业盈利行为）。</p>
-     
-      <p>3. 中华人民共和国法律法规明确禁止未经许可提供、传播、销售或使用翻墙工具/国际联网代理服务（详见《网络安全法》《计算机信息网络国际联网管理暂行规定》等）。本人<strong>强烈反对、坚决不鼓励、不支持</strong>任何违反中国法律法规的行为。</p>
-     
-      <p>4. 所有提到的服务均存在跑路、断线、封号、法律风险等可能性。访问者必须自行判断服务合法性、稳定性、安全性，并<strong>严格遵守所在地全部法律法规</strong>。任何因访问、使用、付费、下载而产生的法律责任、行政处罚、经济损失、账号问题、个人信息泄露等一切后果，<strong>全部由使用者本人自行承担，与本页面及维护者完全无关</strong>。</p>
-     
-      <p>5. 本页面内容可能因法律法规要求、投诉或服务变动而随时删除、下架或修改，本人不保证信息的完整性、准确性、可用性或时效性，也不承担任何担保责任。</p>
-     
-      <p style="margin-top: 1.5rem; font-size: 1.15rem; text-align: center; color: var(--warning); font-weight: bold;">
-        再次重申：请勿将本页面用于任何违法目的。<br>
-        违法必究，请理性、合法、安全使用互联网。
+      <p>1. 本页面所有内容均来源于互联网公开信息及个人使用体验整理，<strong>仅供学习参考、技术讨论、对比研究之用</strong>。</p>
+      <p>2. 本人不运营、不销售、不代理任何相关服务，未从中获取超出自用返佣范围的经济利益。</p>
+      <p>3. 本人强烈反对任何违反中国法律法规的行为，请严格遵守所在地全部法律法规。</p>
+      <p>4. 一切风险与后果由使用者本人自行承担，与本页面无关。</p>
+      <p style="margin-top: 1.5rem; text-align: center; color: var(--warning); font-weight: bold;">
+        请勿将本页面用于任何违法目的。
       </p>
-      <div class="modal-buttons">
-        <button id="agree" class="modal-btn">同意并继续</button>
-        <button id="disagree" class="modal-btn">不同意，离开</button>
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+        <button id="agree" style="padding: 12px 28px; font-size: 1.1rem; background: #6b4eff; color: white; border: none; border-radius: 999px; cursor: pointer;">同意并继续</button>
+        <button id="disagree" style="padding: 12px 28px; font-size: 1.1rem; background: #e63939; color: white; border: none; border-radius: 999px; cursor: pointer;">不同意，离开</button>
       </div>
     </div>
   </div>
@@ -312,6 +267,7 @@
       <h2>小姬挑选三大原则</h2>
       <p>① 连接稳定　② 运营时间久　③ 价格低</p>
     </div>
+
     <ul class="airport-list">
       <li class="airport-item">
         <div class="airport-name">① 万达云（最近升级专线，性价比爆棚）</div>
@@ -324,28 +280,27 @@
           <span class="feature">官网详细教程 + 官方售后群</span>
         </div>
         <div class="status-warning">
-          目前价格稳定，性价比高，小姬目前的主力机场，这个我自用的最多的，300G每月的套餐是解锁了全球节点与住宅IP的，这个有住宅ip哦不错的~
+          目前价格稳定，性价比高，小姬目前的主力机场，这个我自用的最多的。
         </div>
         <a href="https://link.wdyserver.com/register?code=C5FAqoxQ" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
       </li>
 
-      <!-- 新增：超实惠专线机场 -->
       <li class="airport-item">
         <div class="airport-name">② 超实惠专线机场（安卓手机首选，量大管饱，不限在线设备）</div>
         <div class="airport-features">
           <span class="feature">24年开业，运营两年半</span>
           <span class="feature">基础套餐：15元/月，400G超大流量</span>
           <span class="feature">解锁Netflix、Disney+、HBO、Spotify 等音视频流媒体</span>
-          <span class="feature">解锁 OpenAI ChatGPT、Google Gemini、Grok 等 AI 服务网站和客户端</span>
-          <span class="feature">部分套餐赠送 高达 100TB+ 数据量 独家emby影视库畅享</span>
+          <span class="feature">解锁 OpenAI ChatGPT、Google Gemini、Grok 等 AI 服务</span>
+          <span class="feature">部分套餐赠送 高达 100TB+ 数据量 独家emby影视库</span>
           <span class="feature">不限制同时在线设备（太无敌了）</span>
           <span class="feature">有独立客户端全端可用，稳定性好</span>
           <span class="feature">官网详细教程＋tg官方通知群和客服</span>
         </div>
         <div class="status-warning">
-          <span class="highlight">小姬新宠，超大流量，中转+专线机场，重点是不显示同时在线的设备数量！</span>刷视频下载电影无敌，和朋友拼单最方便，性价比目前最好，开业时间也不短。
+          <span class="highlight">小姬新宠，超大流量，中转+专线机场，重点是不显示同时在线的设备数量！</span>刷视频下载电影无敌，和朋友拼单最方便，性价比目前最好。
         </div>
         <a href="https://cshjc.net/register?code=ftEq5JR1" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
@@ -363,7 +318,7 @@
         </div>
         <div class="extra-note">（我用的少，因为我三个设备不够用）</div>
         <div class="status-warning">
-          老牌稳定，价格没变，但设备限2台+流量100G，适合轻度/单设备用户，不适合多设备
+          老牌稳定，适合轻度/单设备用户。
         </div>
         <a href="https://yawtt.net/register?code=YGYBR1vP" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
@@ -376,19 +331,17 @@
           <span class="feature">30/月，全平台客户端（Win/Mac/iOS/Android）</span>
           <span class="feature">Windows TUN模式，完美支持指纹浏览器</span>
           <span class="feature">纯净IP线路，跨境/养号/注册友好</span>
-          <span class="feature">100+ IPEL专线，高速稳定解锁ChatGPT、Gemini等</span>
-          <span class="feature">一键连接，零配置超简单</span>
+          <span class="feature">100+ IPEL专线，高速稳定解锁AI服务</span>
           <span class="feature">支持5台设备同时在线</span>
         </div>
-        <div class="extra-note">（跨境电商用户可以用这个，测速不错）</div>
         <div class="status-warning">
-          能用Gemini，支持指纹浏览器，也适合主力，但稍贵，适合做跨境或者需要深度和AI对话的用，你可以先免费试用，因为现在能白嫖，用好了再选择付费
+          适合做跨境或者需要深度AI对话的用户，可先免费试用。
         </div>
         <a href="https://www.bitboo.cc/" class="link-btn" target="_blank" rel="noopener noreferrer">
           → 访问官网注册
         </a>
-        <div class="extra-note" style="margin-top:0.6rem; font-size:0.95rem;">
-          邀请码【kcqbxz1571】免费领7天30G + 默认1天2G = 试用8天32G，不嫖白不嫖
+        <div class="extra-note" style="margin-top:0.6rem;">
+          邀请码【kcqbxz1571】免费领7天30G + 默认1天2G = 试用8天32G
         </div>
       </li>
     </ul>
@@ -396,57 +349,66 @@
     <div class="notes">
       <div class="note-card note-warning">
         <strong>⚠️ 机场的尽头是跑路</strong><br>
-        任何机场都有跑路风险，运营时间久的更稳妥。不推荐年付/两年付，最好月付、季度付或半年付，把风险降到最低。目前这四个，把所有人群需要的各个档位的和各种用途的都包括了，按需选择。
+        任何机场都有跑路风险，建议月付或季度付。目前这四个基本覆盖了不同需求，按需选择。
       </div>
       <div class="note-card note-caution">
         <strong>⛔ 我也是深度用户</strong><br>
-        我每天用很久机场，推荐的都是我自己筛选的，我自己最多接受15块的（专线除外，专线都贵，但确实稳定速度快），普通直连和中转的没用过更高价的。太便宜的（两三块）几乎几天就废就跑路，不推荐。目前有四个推荐的，前两个比较便宜适合普通用户，第三个是专线机场，追求专线的可以用第三个，我看油管博主推荐好几年了，我自己也用了一段时间，第四个是更高要求的，做跨境电商、AI对话，之类的用的，比较贵一点，我也是白嫖了以后感觉还行后来又自己买了600G
+        推荐的都是我自己筛选并使用过的，信得过就下单。
       </div>
-      <div class="note-card note-caution">
-        <strong>🚧 速度因人而异</strong><br>
-        每个人所在地、运营商不同（南方通常比北方好）。住宅IP比专线好，专线比直连和中转好，中转比直连好：住宅IP＞专线＞中转＞直连，推荐的都是我亲自用过的，我都有真实的付款订单记录的，可以发记录验证。所以信得过就下单，信不过就用免费的，免费的我自己也有更新维护的永久订阅，你们就找适合自己的就行。
-      </div>
-      <div class="note-card">
-        <strong>🗣 关于邀请码和推广</strong><br>
-        因为总有人问所以我才发的推荐。如果你是大佬，可以忽略退出网页，自己去找合适的，邀请码只返20%最多30%佣金，本身推荐的机场就便宜，拉一个人我赚两三块钱，公众号阅读量低，我的佣金只够充下月梯子而已。没必要大费周章骗人。免费魔法也在更新，全凭自愿选择～
-      </div>
-      <div class="note-card">
-        <strong>安装说明</strong><br>
-        安卓/Windows/mac：在官网下载安装包安装即可！<br>
-        iOS：需美区Apple ID在App Store下载客户端（各家官网有教程）。不好用的话，我可以提供一些美区免费ID资源（用于下载小火箭等）。
-      </div>
+      <!-- 其他 note-card 可以根据需要补充，这里简化了 -->
     </div>
 
-    <!-- 最下方链接区 -->
     <div class="extra-links">
       <div class="link-group">
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-          → iOS小火箭免费账号
-        </a>
-        <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">
-          → 小姬的TG频道
-        </a>
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-          → 小姬永久发布页
-        </a>
-        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">
-          → 代理软件下载合集
-        </a>
-        <a href="https://tgsss.com/AA123EB8" class="link-btn" target="_blank" rel="noopener noreferrer">
-          → TG纸飞机低价账号
-        </a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ iOS小火箭免费账号</a>
+        <a href="https://t.me/jbksjl" class="link-btn" target="_blank" rel="noopener noreferrer">→ 小姬的TG频道</a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fjbks-fabuye%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ 小姬永久发布页</a>
+        <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fdlrjxzjbks%2F" class="link-btn" target="_blank" rel="noopener noreferrer">→ 代理软件下载合集</a>
+        <a href="https://tgsss.com/AA123EB8" class="link-btn" target="_blank" rel="noopener noreferrer">→ TG纸飞机低价账号</a>
       </div>
     </div>
   </div>
 
   <script>
+    // 主题切换逻辑
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggle.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      } else if (theme === 'light') {
+        root.removeAttribute('data-theme');
+        toggle.textContent = '🌞';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // 初始化主题
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      // 默认跟随系统，不设置 data-theme
+      toggle.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙' : '🌞';
+    }
+
+    // 点击切换
+    toggle.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark' || 
+                    (!root.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      setTheme(isDark ? 'light' : 'dark');
+    });
+
     // 弹窗逻辑
-    document.getElementById('agree').addEventListener('click', function() {
+    document.getElementById('agree').addEventListener('click', () => {
       document.getElementById('disclaimerModal').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
     });
-    document.getElementById('disagree').addEventListener('click', function() {
-      document.body.innerHTML = '<div style="text-align:center; margin-top:200px; color:#ff6b6b; font-size:2.5rem; font-weight:bold;">已取消访问<br><br>请关闭此页面</div>';
+    document.getElementById('disagree').addEventListener('click', () => {
+      document.body.innerHTML = '<div style="text-align:center; margin-top:200px; color:#e63939; font-size:2.5rem; font-weight:bold;">已取消访问<br><br>请关闭此页面</div>';
     });
   </script>
 </body>
