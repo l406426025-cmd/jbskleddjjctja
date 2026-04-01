@@ -120,24 +120,27 @@
       font-size: 1.45rem;
     }
     .principles p {
-      font-size: 1.22rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: #1f1f1f;
       letter-spacing: 0.6px;
-      line-height: 1.4;
+      line-height: 1.35;
     }
     [data-theme="dark"] .principles p {
       color: #f0f0f5;
     }
 
-    /* 手机端优化：三大原则尽量单行，必要时轻微缩小字体但不隐藏 */
+    /* 手机端三大原则优化：进一步缩小字体，强制尽量单行 */
     @media (max-width: 600px) {
       .principles p {
-        font-size: 1.08rem;
-        white-space: normal;        /* 允许必要换行 */
-        word-spacing: 2px;
+        font-size: 0.95rem;        /* 继续缩小 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 0.3px;
         padding: 0 8px;
       }
+      h1 { font-size: 2.4rem; }
     }
 
     .airport-list {
@@ -216,7 +219,6 @@
       font-size: 0.99rem;
     }
 
-    /* 方形块按钮 - 颜色明显 */
     .link-btn {
       display: block;
       width: 100%;
@@ -294,11 +296,6 @@
       color: var(--warning);
       text-align: center;
       margin-bottom: 1.6rem;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2.45rem; }
-      .link-btn { max-width: 100%; }
     }
   </style>
 </head>
@@ -412,7 +409,6 @@
       </li>
     </ul>
 
-    <!-- 笔记内容保持不变 -->
     <div class="notes">
       <div class="note-card note-warning">
         <strong>⚠️ 机场的尽头是跑路</strong><br>
@@ -437,7 +433,6 @@
       </div>
     </div>
 
-    <!-- 最下方方形块按钮 -->
     <div class="extra-links">
       <div class="link-group">
         <a href="https://proxy.edgeone.pp.ua/proxy?url=https%3A%2F%2Fl406426025-cmd.github.io%2Fxiaoji.github.io%2F" class="link-btn" target="_blank" rel="noopener noreferrer">iOS小火箭免费账号</a>
